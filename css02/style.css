@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+header{
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    font-size: 60px;
+}
+
+
+ul{
+    display: flex;
+    gap: 10px;
+}
+
+li{
+    color: purple;
+    font-size: 45px;
+}

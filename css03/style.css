@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+main{
+    display: flex;
+}
+
+
+
+#container {
+    width: 80%;
+    height: 400px;
+    padding: 20px;
+    background-color: red;
+    color: white;
+    gap: 10px;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.content{
+    background-color: blue;
+    width: 120px;
+    height: 120px;
+    text-align: center;
+}
+
+#block-1 {
+    order: 1;
+}
+
+#block-2 {
+    order: 2;
+}
+
+#block-3 {
+    order: 3;
+}
+
+#block-4 {
+    order: -3;
+}
+
+#block-5 {
+    order: 4;
+}
