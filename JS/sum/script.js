@@ -6,6 +6,6 @@ const btn = document.getElementById("btnSUM");
 btn.addEventListener("click", () => {
 
     let sum = parseInt(n1.value) + parseInt(n2.value);
-    parse
     res.textContent = sum;
 })
+
