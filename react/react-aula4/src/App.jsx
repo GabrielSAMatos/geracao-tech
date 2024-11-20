@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+
+  const [count, setCount] = useState(0);
+  const [count2, setCount2] = useState(0);
+
+
+  function welcome(){
+    alert("Welcome!")
+  }
+
+
+  useEffect(() => {
+    console.log("useEffect chamado");
+  });
+
+  useEffect(() => {
+    welcome()
+    console.log("useEffect chamado apenas uma vez");
+  }, []);
+
+  useEffect(() => {
+    console.log(`useEffect ativado somente por dependencia`);
+  }, [count2])
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+      <h1>aoba</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo ex temporibus,
+        exercitationem omnis dicta doloribus ipsa maiores minima magnam est modi numquam 
+        architecto illo et vitae hic minus odit eaque.
       </p>
+      <h2>Count: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>Click here</button>
+      <h2>Count: {count2}</h2>
+      <button onClick={() => setCount2(count2 + 1)}>Click here</button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
