@@ -2,7 +2,7 @@ const { createServer } = require('node:http');
 const listProducts = require('./routes/products');
 
 const host = 'localhost';
-const port = 3000;
+const port = 4000;
 
 
 
