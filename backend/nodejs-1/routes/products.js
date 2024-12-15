@@ -1,5 +1,6 @@
-function listProducts(){
-    const products = [
+class Products{
+
+    static products = [
         {
             id: 1,
             name: 'Mouse',
@@ -11,21 +12,33 @@ function listProducts(){
             price: '14.97'
         }
     ];
-    return products;
-}
 
-function addProducts(){
+    static add(id, name, price){
+        Products.products.push({
+            id: id,
+            name: name,
+            price: price
+        });
+    }
 
-}
+    static list(){
+        return Products.products;
+    }
 
-function removeProducts(){
+    static edit(index){
+        
+    }
+
+    static remove(index){
+        Products.products.splice(index, 1)
+        console.log(Products.products);
+        
+    }
+    
+
+    
+    
     
 }
 
-function editProducts(){
-    
-}
-
-
-
-module.exports = listProducts;
+module.exports = Products;
