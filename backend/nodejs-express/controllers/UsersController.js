@@ -1,4 +1,3 @@
-const { response } = require('express');
 const UserModel = require('../model/UserModel');
 
 class UsersController {
@@ -9,24 +8,32 @@ class UsersController {
     };
 
     consultById(req, res) {
-        return UserModel.consultById();
+        const id = req.params.id;
+        const data = UserModel.consultById(id);
+        return res.json(data);
     };
 
     create(req, res) {
         const body = req.body;
         UserModel.create(body);
-        return res.status(200).json({
+        return res.status(201).json({
             message: "User created successfully."
         });
     };
 
     update(req, res) {
-        return UserModel.update();
+        const id = req.params.id;
+        const body = req.body;
+        UserModel.update(id, body);
+        return res.json({
+            message: "Users updated successfully."
+        });
     };
 
     delete(req, res) {
-        UserModel.delete();
-        return res.status(200).json({
+        const id = req.params.id;
+        UserModel.delete(id);
+        return res.json({
             message: "User deleted successfully."
         })
     };

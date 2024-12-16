@@ -8,9 +8,10 @@ const usersController = new UsersController();
 // CRUD 
 
 UsersRoutes.get('/users', usersController.listing);
+UsersRoutes.get('/users/:id', usersController.consultById);
 UsersRoutes.post('/users', usersController.create);
-UsersRoutes.put('/users', usersController.update);
-UsersRoutes.delete('/users', usersController.delete);
+UsersRoutes.put('/users/:id', usersController.update);
+UsersRoutes.delete('/users/:id', usersController.delete);
 
 
 
