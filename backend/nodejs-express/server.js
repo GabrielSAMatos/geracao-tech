@@ -1,5 +1,6 @@
 const express = require('express');
-const UsersRoutes = require('./routes/UsersRoutes');
+const PrivateRoutes = require('./routes/PrivateRoutes');
+const PublicRoutes = require('./routes/PublicRoutes');
 
 
 const host = "localhost";
@@ -8,12 +9,19 @@ const port = 3000;
 const app = express();
 app.use(express.json());
 
+
 app.get('/', (req, res) => {
     return res.send("Backend com NODEJS + Express");
 });
 
-app.use(UsersRoutes);
+//ROTAS PUBLICAS
+app.use(PublicRoutes);
 
+//ROTAS PRIVADAS
+app.use(PrivateRoutes);
+
+
+//PASSAGEM DE DADOS PARA O BACKEND
 app.get('/test/:code', (req, res) => {
     //Querys
     const query = req.query;

@@ -4,15 +4,22 @@ class UserModel {
         {
             id: 1,
             name: "Admin",
-            login: "Admin"
+            login: "Admin",
+            password: '123'                    
         },
         {
             id: 2,
             name: "teste",
-            login: "teste"
+            login: "teste",
+            password: '123'                        
         }
     ];
 
+
+    static authenticate(login, password) {
+        const index = UserModel.list.findIndex(item => item.login == login && item.password == password);
+        return UserModel.list[index];
+    }
 
     static listing() {
         return UserModel.list;
