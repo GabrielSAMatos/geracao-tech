@@ -1,5 +1,8 @@
 const express = require('express');
-const AuthController = require('../controllers/AuthController')
+const AuthController = require('../controllers/AuthController');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 
 const PublicRoutes = express.Router();
 
@@ -9,8 +12,9 @@ PublicRoutes.post('/login', (req, res) => {
     const data = auth.login(body.login, body.password);
 
     if(data) {
+        const token = jwt.sign(data, process.env.APP_KEY_TOKEN)
         return res.json({
-            token: data
+            token: token
         });
     };
 
