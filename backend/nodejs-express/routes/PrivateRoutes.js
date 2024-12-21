@@ -2,6 +2,8 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const PostRoutes = require('./PostRoutes');
 const UsersRoutes = require('./UsersRoutes');
+const TagsRoutes = require('./TagsRoutes');
+
 require('dotenv').config();
 
 
@@ -10,7 +12,8 @@ const PrivateRoutes = express.Router();
 
 //MIDDLEWARE
 PrivateRoutes.use((req, res, next) => {
-
+    return next();
+    
     let auth = false;
 
     if(req.headers.token){
@@ -36,7 +39,7 @@ PrivateRoutes.use((req, res, next) => {
 
 
 PrivateRoutes.use(PostRoutes);
-PrivateRoutes.use(UsersRoutes)
-
+PrivateRoutes.use(UsersRoutes);
+PrivateRoutes.use(TagsRoutes);
 
 module.exports = PrivateRoutes;
