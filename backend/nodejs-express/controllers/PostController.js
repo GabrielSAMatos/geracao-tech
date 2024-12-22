@@ -1,15 +1,18 @@
 const PostModel = require('../model/PostModel');
+const UserModel = require('../model/UserModel');
+const ProfileModel = require('../model/ProfileModel');
 
 class PostController {
 
-    listing(req, res) {
-        const data = PostModel.listing()
-        return res.json(data);
-    };
-
-    consultById(req, res) {
-        const id = req.params.id;
-        const data = PostModel.consultById(id);
+    async findAll(req, res) {
+        PostModel.belongsTo(UserModel, {foreignKey: "user_id"});
+        UserModel.hasOne(ProfileModel, {foreignKey: "user_id"});
+        const data = await PostModel.findAll({
+            include: {
+                model: UserModel,
+                include: ProfileModel
+            }
+        });
         return res.json(data);
     };
 
@@ -17,25 +20,8 @@ class PostController {
         const body = req.body;
         PostModel.create(body);
         return res.status(201).json({
-            message: "User created successfully."
+            message: "Post created successfully."
         });
-    };
-
-    update(req, res) {
-        const id = req.params.id;
-        const body = req.body;
-        PostModel.update(id, body);
-        return res.json({
-            message: "Users updated successfully."
-        });
-    };
-
-    delete(req, res) {
-        const id = req.params.id;
-        PostModel.delete(id);
-        return res.json({
-            message: "User deleted successfully."
-        })
     };
 };
 

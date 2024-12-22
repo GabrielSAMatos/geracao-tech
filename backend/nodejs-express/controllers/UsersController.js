@@ -1,42 +1,48 @@
 const UserModel = require('../model/UserModel');
+const ProfileModel = require('../model/ProfileModel');
 
-class UsersController {
+class UserController {
+    async findAll(req, res) {
+        //refere-se primeiro aos users e dps os profiles
+        UserModel.hasOne(ProfileModel, {foreignKey: "user_id"});
 
-    listing(req, res) {
-        const data = UserModel.listing()
-        return res.json(data);
-    };
+        //refere-se primeiro aos profiles e dps os users
+        ProfileModel.belongsTo(UserModel, {foreignKey: "user_id"});
+        /*
+        const profiles = await ProfileModel.findAll({
+            include: UserModel
+        });
+        */
 
-    consultById(req, res) {
-        const id = req.params.id;
-        const data = UserModel.consultById(id);
-        return res.json(data);
-    };
+        const users = await UserModel.findAll({
+            include: ProfileModel
+        });
 
-    create(req, res) {
+        return res.json(users);
+
+        // let data = users.map(async user => {
+        //     let profile = await ProfileModel.findOne({
+        //         where: {
+        //             user_id: user.id
+        //         }
+        //     })
+        //     user.setDataValue('profile', profile)
+        //     return user;
+        // })
+        // data = await Promise.all(data)
+
+    }
+
+    async create(req, res) {
+        UserModel.hasOne(ProfileModel, {foreignKey: "user_id"});
+
         const body = req.body;
-        UserModel.create(body);
+        UserModel.create(body, {include: ProfileModel});
+
         return res.status(201).json({
-            message: "User created successfully."
+            message: "Created user."
         });
-    };
-
-    update(req, res) {
-        const id = req.params.id;
-        const body = req.body;
-        UserModel.update(id, body);
-        return res.json({
-            message: "Users updated successfully."
-        });
-    };
-
-    delete(req, res) {
-        const id = req.params.id;
-        UserModel.delete(id);
-        return res.json({
-            message: "User deleted successfully."
-        })
-    };
+    }
 };
 
-module.exports = UsersController;
+module.exports = UserController;

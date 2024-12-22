@@ -1,41 +1,40 @@
 const { DataTypes, Model } = require('sequelize');
 const connection = require('../config/connection');
-const UserModel = require('../model/UserModel');
+const UserModel = require('./UserModel')
 
-class Post extends Model {}
+class Profile extends Model {}
 
-Post.init(
+Profile.init(
   {  
     user_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER(1),
         allowNull: false,
-        references:{
+        references: {
             model: UserModel,
             key: 'id'
         }
     },
-    title: {
+    firstname: {
         type: DataTypes.STRING(45),
         allowNull: false
     },
-    slug: {
-        type: DataTypes.STRING(255),
+    surname: {
+        type: DataTypes.STRING(45),
         allowNull: false
     },
-    content: {
-        type: DataTypes.TEXT
+    picture_path: {
+        type: DataTypes.STRING(255),
     },
-    image_path:{
+    bio: {
         type: DataTypes.STRING(255)
     }
+
   },
   {
+    tableName: 'profile',
+    timestamps: false,
     sequelize: connection, 
-    tableName: "posts",
   },
 );
 
-
-
-
-module.exports = Post;
+module.exports = Profile;

@@ -1,58 +1,32 @@
-class UserModel {
+const { DataTypes, Model } = require('sequelize');
+const connection = require('../config/connection');
 
-    static list = [
-        {
-            id: 1,
-            name: "Admin",
-            login: "Admin",
-            password: '123'                    
-        },
-        {
-            id: 2,
-            name: "teste",
-            login: "teste",
-            password: '123'                        
-        }
-    ];
+class User extends Model {}
 
-
-    static authenticate(login, password) {
-        const index = UserModel.list.findIndex(item => item.login == login && item.password == password);
-        return UserModel.list[index];
+User.init(
+  {  
+    is_active: {
+        type: DataTypes.TINYINT(1),
+        defaultValue: 0,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    username: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING(255),
+        allowNull: false
     }
+  },
+  {
+    tableName: 'users',
+    sequelize: connection, 
+  },
+);
 
-    static listing() {
-        return UserModel.list;
-    };
-
-    static consultById(id) {
-        const data =  UserModel.list.filter(item => item.id == id);
-        return data;
-    };
-
-    static create(data) {
-        UserModel.list.push(data);
-    };
-
-    static update(id, data) {
-        const indice = UserModel.list.findIndex(item => item.id == id);
-        UserModel.list[indice] = data;
-
-        /*UserModel.list.filter(item => {
-            if(item.id == id){
-                return data;
-            } else{
-                return item;
-            }
-        });
-        UserModel.list = data;
-        */
-    };
-
-    static delete(id) {
-        const data = UserModel.list.filter(item => item.id != id);
-        UserModel.list = data;
-    };
-};
-
-module.exports = UserModel;
+module.exports = User;

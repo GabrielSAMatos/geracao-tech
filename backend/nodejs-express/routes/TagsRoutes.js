@@ -1,7 +1,7 @@
 const express = require('express');
-const TagsRoutes = express.Router();
 let tagsController = require('../controllers/TagsController');
 
+const TagsRoutes = express.Router();
 
 tagsController = new tagsController();
 
