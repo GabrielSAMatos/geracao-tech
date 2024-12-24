@@ -4,6 +4,7 @@ const ProfileModel = require('../model/ProfileModel');
 class UserController {
     async findAll(req, res) {
         //refere-se primeiro aos users e dps os profiles
+        // os profiles pertencem aos users
         UserModel.hasOne(ProfileModel, {foreignKey: "user_id"});
 
         //refere-se primeiro aos profiles e dps os users
