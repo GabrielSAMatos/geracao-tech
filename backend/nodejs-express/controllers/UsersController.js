@@ -2,13 +2,18 @@ const UserModel = require('../model/UserModel');
 const ProfileModel = require('../model/ProfileModel');
 
 class UserController {
+
+    constructor(){
+        UserModel.associate({ProfileModel})
+    }
+
     async findAll(req, res) {
         //refere-se primeiro aos users e dps os profiles
         // os profiles pertencem aos users
-        UserModel.hasOne(ProfileModel, {foreignKey: "user_id"});
+        //UserModel.hasOne(ProfileModel, {foreignKey: "user_id"});
 
         //refere-se primeiro aos profiles e dps os users
-        ProfileModel.belongsTo(UserModel, {foreignKey: "user_id"});
+        //ProfileModel.belongsTo(UserModel, {foreignKey: "user_id"});
         /*
         const profiles = await ProfileModel.findAll({
             include: UserModel
@@ -35,7 +40,6 @@ class UserController {
     }
 
     async create(req, res) {
-        UserModel.hasOne(ProfileModel, {foreignKey: "user_id"});
 
         const body = req.body;
         UserModel.create(body, {include: ProfileModel});

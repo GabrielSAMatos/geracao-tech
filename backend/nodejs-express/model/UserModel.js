@@ -1,9 +1,13 @@
 const { DataTypes, Model } = require('sequelize');
 const connection = require('../config/connection');
 
-class User extends Model {}
+class UserModel extends Model {
+  static associate({ProfileModel}){
+    UserModel.hasOne(ProfileModel, {foreignKey: "user_id"});
+  }
+}
 
-User.init(
+UserModel.init(
   {  
     is_active: {
         type: DataTypes.TINYINT(1),
@@ -29,4 +33,4 @@ User.init(
   },
 );
 
-module.exports = User;
+module.exports = UserModel;

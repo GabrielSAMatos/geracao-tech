@@ -1,10 +1,20 @@
 const { DataTypes, Model } = require('sequelize');
 const connection = require('../config/connection');
-const UserModel = require('../model/UserModel');
+const UserModel = require('./UserModel');
 
-class Post extends Model {}
 
-Post.init(
+class PostModel extends Model {
+  static associate({PostTagModel, UserModel, TagsModel}) {
+    PostModel.belongsTo(UserModel, {foreignKey: "user_id"});
+    PostModel.belongsToMany(TagsModel, {
+        through: PostTagModel,
+        foreignKey: 'post_id',
+        otherKey: 'tag_id'
+    });
+  }
+}
+
+PostModel.init(
   {  
     user_id: {
         type: DataTypes.INTEGER,
@@ -38,4 +48,4 @@ Post.init(
 
 
 
-module.exports = Post;
+module.exports = PostModel;

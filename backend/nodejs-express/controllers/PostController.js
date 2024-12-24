@@ -1,19 +1,23 @@
 const PostModel = require('../model/PostModel');
 const UserModel = require('../model/UserModel');
 const ProfileModel = require('../model/ProfileModel');
-const PostTagModel = require('../model/PostTagModel');
 const TagsModel = require('../model/TagsModel');
+const PostTagModel = require('../model/PostTagModel');
 
 class PostController {
 
-    async findAll(req, res) {
-        PostModel.belongsTo(UserModel, {foreignKey: "user_id"});
-        PostModel.belongsToMany(TagsModel, {
-            through: PostTagModel,
-            foreignKey: 'post_id',
-            otherKey: 'tag_id'
+    constructor(){
+        UserModel.associate({ProfileModel});
+
+        PostModel.associate({
+            TagsModel,
+            PostTagModel,
+            UserModel
         });
-        UserModel.hasOne(ProfileModel, {foreignKey: "user_id"});
+    };
+
+    async findAll(req, res) {
+        
         const data = await PostModel.findAll({
             include: [
                 {
@@ -29,14 +33,6 @@ class PostController {
     };
 
     async create(req, res) {
-
-        PostModel.belongsToMany(TagsModel, {
-            through: PostTagModel,
-            foreignKey: 'post_id',
-            otherKey: 'tag_id'
-        });
-
-
 
         const {tags, ...body} = req.body;
 
