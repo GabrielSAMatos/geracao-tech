@@ -8,10 +8,10 @@ const postController = new PostController();
 // CRUD 
 
 PostRoutes.get('/posts', postController.findAll);
-// PostRoutes.get('/posts/:id', postController.consultById);
+PostRoutes.get('/posts/:id', postController.findById);
 PostRoutes.post('/posts', postController.create);
-// PostRoutes.put('/posts/:id', postController.update);
-// PostRoutes.delete('/posts/:id', postController.delete);
+PostRoutes.put('/posts/:id', postController.update);
+PostRoutes.delete('/posts/:id', postController.delete);
 
 
 module.exports = PostRoutes;

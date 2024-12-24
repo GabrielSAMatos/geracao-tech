@@ -17,19 +17,30 @@ class PostController {
     };
 
     async findAll(req, res) {
+        let query = req.query;
+        query = query.fields.split(',');
         
         const data = await PostModel.findAll({
-            include: [
-                {
-                    model: UserModel,
-                    include: ProfileModel
-                },
-                {
-                    model: TagsModel
-                }
-        ]
+            attributes: query
         });
         return res.json(data);
+    };
+
+    async findById(req, res) {
+        let id = req.params.id;
+
+        let post = await PostModel.findByPk(id, {
+            attributes: ["title", "slug", "content"],
+            include: {
+                model: UserModel,
+                attributes: ["email", "is_active", "username"],
+                include: {
+                    model: ProfileModel,
+                    attributes: ["firstname", "surname"]
+                }
+            }
+        });
+        return res.json(post);
     };
 
     async create(req, res) {
@@ -43,12 +54,34 @@ class PostController {
             }
         });
 
-        post.setTags(tags);
+        //post.setTags(tags);
 
         return res.status(201).json({
             message: "Post created successfully."
         });
     };
+
+    async update(req, res) {
+        const id = req.params.id;
+        const body = req.body;
+
+        PostModel.update(body, { where: {id} });
+        return res.json({
+            message: "Post changed."
+        })
+    };
+
+    async delete(req, res){
+
+        const id = req.params.id;
+
+        await PostModel.destroy({ where: {id} });
+
+
+        return res.json({
+            message: "Post deleted."
+        })
+    }
 };
 
 module.exports = PostController;
