@@ -1,6 +1,7 @@
 const UserModel = require('../model/UserModel');
 const ProfileModel = require('../model/ProfileModel');
 const PostModel = require('../model/PostModel');
+const CommentsModel = require('../model/CommentsModel');
 
 async function execute() {
 
@@ -24,7 +25,8 @@ async function execute() {
         title: "test",
         slug: "test",
         content: "testetesteteste"
-    })
+    });
+
 
 };
 

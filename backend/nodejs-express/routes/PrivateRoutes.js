@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const PostRoutes = require('./PostRoutes');
 const UsersRoutes = require('./UsersRoutes');
 const TagsRoutes = require('./TagsRoutes');
+const CommentsRoutes = require('./CommentsRoutes');
 
 require('dotenv').config();
 
@@ -41,5 +42,9 @@ PrivateRoutes.use((req, res, next) => {
 PrivateRoutes.use(PostRoutes);
 PrivateRoutes.use(UsersRoutes);
 PrivateRoutes.use(TagsRoutes);
+PrivateRoutes.use(CommentsRoutes);
+
+
+
 
 module.exports = PrivateRoutes;
